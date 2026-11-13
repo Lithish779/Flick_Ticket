@@ -153,14 +153,8 @@ export default function Navbar() {
 
   return (
     <>
-      {/* 🎬 BookMyShow Single-Decker Navigation Bar (Matching Reference Screenshot) */}
-      <header
-        className={`sticky top-0 z-40 w-full transition-colors duration-200 ${
-          isHomePage
-            ? "bg-[#EAEBED]/95 backdrop-blur-md border-b border-gray-300/40"
-            : "bg-white dark:bg-[#1E202B] text-gray-800 dark:text-white border-b border-gray-200 dark:border-gray-800 shadow-xs"
-        }`}
-      >
+      {/* 🎬 FlickTicket Premium Light Navigation Bar */}
+      <header className="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs text-slate-800 transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
           
           {/* Left: FlickTicket Brand Logo & City Selector */}
@@ -170,7 +164,7 @@ export default function Navbar() {
               onClick={closeAllModals}
               className="flex items-center shrink-0"
             >
-              <FlickLogo light={isHomePage} size="md" />
+              <FlickLogo light={true} size="md" />
             </Link>
 
             {/* 📍 City Selector Pill */}
@@ -179,29 +173,23 @@ export default function Navbar() {
                 playAudioFeedback("pop");
                 setCityOpen(true);
               }}
-              className={`flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full transition ${
-                isHomePage
-                  ? "bg-gray-300/60 hover:bg-gray-300 text-gray-800"
-                  : "bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 text-gray-700 dark:text-gray-200"
-              }`}
+              className="flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-900 border border-slate-200/80 transition cursor-pointer shadow-2xs"
               title="Select City"
             >
-              <span className="text-[#F84464]">📍</span>
-              <span className="truncate max-w-[85px] sm:max-w-[120px]">{selectedCity}</span>
-              <span className="text-[10px] text-gray-500">▾</span>
+              <span className="text-[#F84464] text-xs">📍</span>
+              <span className="truncate max-w-[85px] sm:max-w-[120px] font-bold">{selectedCity}</span>
+              <span className="text-[10px] text-slate-400">▾</span>
             </button>
           </div>
 
-          {/* Center: Navigation Links (Matching Screenshot: Home, Movies, Theatres, Releases) */}
-          <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-xs sm:text-sm font-semibold">
+          {/* Center: Navigation Links */}
+          <nav className="hidden md:flex items-center gap-7 lg:gap-9 text-xs sm:text-sm font-semibold">
             <Link
               to="/"
-              className={`transition pb-1 ${
+              className={`transition pb-1.5 relative ${
                 location.pathname === "/"
-                  ? "text-black font-extrabold border-b-2 border-[#F84464]"
-                  : isHomePage
-                  ? "text-gray-700 hover:text-black"
-                  : "text-gray-600 dark:text-gray-300 hover:text-[#F84464]"
+                  ? "text-slate-950 font-extrabold after:absolute after:bottom-0 after:inset-x-0 after:h-0.5 after:bg-[#F84464] after:rounded-full"
+                  : "text-slate-600 hover:text-slate-950"
               }`}
             >
               Home
@@ -209,12 +197,10 @@ export default function Navbar() {
 
             <Link
               to="/movies"
-              className={`transition pb-1 ${
+              className={`transition pb-1.5 relative ${
                 location.pathname === "/movies" && !location.search
-                  ? "text-[#F84464] font-extrabold border-b-2 border-[#F84464]"
-                  : isHomePage
-                  ? "text-gray-700 hover:text-black"
-                  : "text-gray-600 dark:text-gray-300 hover:text-[#F84464]"
+                  ? "text-[#F84464] font-extrabold after:absolute after:bottom-0 after:inset-x-0 after:h-0.5 after:bg-[#F84464] after:rounded-full"
+                  : "text-slate-600 hover:text-slate-950"
               }`}
             >
               Movies
@@ -222,28 +208,31 @@ export default function Navbar() {
 
             <Link
               to="/movies"
-              className={`transition pb-1 ${
-                isHomePage
-                  ? "text-gray-700 hover:text-black"
-                  : "text-gray-600 dark:text-gray-300 hover:text-[#F84464]"
-              }`}
+              className="text-slate-600 hover:text-slate-950 transition pb-1.5"
             >
               Theatres
             </Link>
 
             <Link
               to="/movies"
-              className={`transition pb-1 ${
-                isHomePage
-                  ? "text-gray-700 hover:text-black"
-                  : "text-gray-600 dark:text-gray-300 hover:text-[#F84464]"
-              }`}
+              className="text-slate-600 hover:text-slate-950 transition pb-1.5"
             >
               Releases
             </Link>
+
+            <Link
+              to="/snacks"
+              className={`transition pb-1.5 relative ${
+                location.pathname === "/snacks"
+                  ? "text-[#F84464] font-extrabold after:absolute after:bottom-0 after:inset-x-0 after:h-0.5 after:bg-[#F84464] after:rounded-full"
+                  : "text-slate-600 hover:text-slate-950"
+              }`}
+            >
+              Snacks & F&B
+            </Link>
           </nav>
 
-          {/* Right Action Icons: Search Icon + Watchlist + Blue Profile Avatar */}
+          {/* Right Action Icons: Search Icon + Watchlist + Profile Avatar */}
           <div className="flex items-center gap-2.5 sm:gap-3 shrink-0">
             {/* 🔍 Search Icon Button (opens Spotlight) */}
             <button
@@ -251,12 +240,8 @@ export default function Navbar() {
                 playAudioFeedback("pop");
                 setSpotlightOpen(true);
               }}
-              className={`w-9 h-9 rounded-full flex items-center justify-center text-sm transition shadow-xs cursor-pointer ${
-                isHomePage
-                  ? "bg-gray-300/60 hover:bg-gray-300 text-gray-800"
-                  : "bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 text-gray-700 dark:text-gray-200"
-              }`}
-              title="Search Movies, Plays, Sports (⌘K)"
+              className="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200/80 text-slate-700 hover:text-slate-900 border border-slate-200/80 flex items-center justify-center text-sm transition shadow-2xs cursor-pointer"
+              title="Search Movies, Genres, Snacks (⌘K)"
             >
               🔍
             </button>
@@ -267,11 +252,7 @@ export default function Navbar() {
                 playAudioFeedback("pop");
                 setWatchlistOpen(true);
               }}
-              className={`w-9 h-9 rounded-full flex items-center justify-center relative transition shadow-xs cursor-pointer ${
-                isHomePage
-                  ? "bg-gray-300/60 hover:bg-gray-300 text-[#F84464]"
-                  : "bg-gray-100 dark:bg-white/10 hover:bg-gray-200 dark:hover:bg-white/20 text-[#F84464]"
-              }`}
+              className="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200/80 text-[#F84464] border border-slate-200/80 flex items-center justify-center relative transition shadow-2xs cursor-pointer"
               title="Saved Watchlist"
             >
               <span className="text-sm font-bold">♡</span>
@@ -282,14 +263,14 @@ export default function Navbar() {
               )}
             </button>
 
-            {/* 👤 Circular Blue Profile Avatar (Exact match to blue circle in screenshot) */}
+            {/* 👤 Circular Profile Avatar */}
             {isLoggedIn ? (
               <button
                 onClick={() => {
                   playAudioFeedback("pop");
                   setUserMenuOpen(true);
                 }}
-                className="w-9 h-9 rounded-full bg-[#1877F2] hover:bg-[#166FE5] text-white flex items-center justify-center font-bold text-sm shadow-md transition transform hover:scale-105 shrink-0 cursor-pointer"
+                className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#1877F2] to-[#38BDF8] text-white flex items-center justify-center font-bold text-sm shadow-sm transition transform hover:scale-105 shrink-0 cursor-pointer ring-2 ring-blue-100"
                 title={userName || "Account"}
               >
                 {userName ? userName.charAt(0).toUpperCase() : "U"}
@@ -300,7 +281,7 @@ export default function Navbar() {
                   playAudioFeedback("pop");
                   setUserMenuOpen(true);
                 }}
-                className="w-9 h-9 rounded-full bg-[#1877F2] hover:bg-[#166FE5] text-white flex items-center justify-center font-bold text-sm shadow-md transition transform hover:scale-105 shrink-0 cursor-pointer"
+                className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#1877F2] to-[#38BDF8] text-white flex items-center justify-center font-bold text-sm shadow-sm transition transform hover:scale-105 shrink-0 cursor-pointer ring-2 ring-blue-100"
                 title="Account / Sign In"
               >
                 <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -315,11 +296,7 @@ export default function Navbar() {
                 playAudioFeedback("pop");
                 setMenuOpen(true);
               }}
-              className={`md:hidden p-2 rounded-lg transition ${
-                isHomePage
-                  ? "text-gray-800 hover:bg-gray-300/60"
-                  : "text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-white/10"
-              }`}
+              className="md:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 transition"
               aria-label="Menu"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -554,22 +531,22 @@ export default function Navbar() {
           <div className="bg-white border border-gray-200 rounded-2xl w-full max-w-md overflow-hidden shadow-2xl animate-modalScaleIn flex flex-col text-gray-800">
             
             {/* User Profile Banner */}
-            <div className="p-6 bg-gradient-to-r from-[#333545] to-[#1F2533] text-white relative">
+            <div className="p-6 bg-gradient-to-r from-[#F84464] to-[#FF5E7E] text-white relative shadow-sm">
               <button
                 onClick={() => setUserMenuOpen(false)}
-                className="absolute top-4 right-4 w-7 h-7 rounded-full bg-black/30 hover:bg-black/50 text-gray-300 hover:text-white flex items-center justify-center text-xs font-bold"
+                className="absolute top-4 right-4 w-7 h-7 rounded-full bg-black/20 hover:bg-black/35 text-white flex items-center justify-center text-xs font-bold transition"
               >
                 ✕
               </button>
 
               <div className="flex items-center gap-3.5">
-                <div className="w-12 h-12 rounded-full bg-[#F84464] flex items-center justify-center text-white font-bold text-xl shadow-md">
+                <div className="w-12 h-12 rounded-full bg-white text-[#F84464] flex items-center justify-center font-black text-xl shadow-md">
                   {userName ? userName.charAt(0).toUpperCase() : "U"}
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-white">{userName || "FlickTicket User"}</h3>
                   <div className="flex items-center gap-1.5 mt-0.5">
-                    <span className="text-[10px] font-bold text-[#F84464] bg-white/20 px-2 py-0.5 rounded-full">
+                    <span className="text-[10px] font-bold text-white bg-white/20 px-2 py-0.5 rounded-full border border-white/30">
                       👑 FlickClub Member
                     </span>
                   </div>
@@ -600,7 +577,7 @@ export default function Navbar() {
                 className="w-full p-3 hover:bg-gray-50 border border-transparent hover:border-gray-200 rounded-xl text-left flex items-center justify-between text-xs font-semibold text-gray-700 transition"
               >
                 <span className="flex items-center gap-2.5">
-                  <span className="text-base">👑</span> CineClub VIP Rewards
+                  <span className="text-base">👑</span> FlickClub VIP Rewards
                 </span>
                 <span className="text-gray-400">›</span>
               </button>
@@ -660,40 +637,39 @@ export default function Navbar() {
       )}
 
       {/* ========================================================================= */}
-      {/* ☰ CENTERED FULL NAVIGATION HUB MODAL (FOR MOBILE & TABLET SCREENS)        */}
-      {/* ========================================================================= */}
+      {/* ☰ CENTERED FULL NAVIGATION HUB MODAL (FOR MOBILE & TABLET SCREENS) */}
       {menuOpen && (
-        <div className="fixed inset-0 z-[100] bg-black/90 backdrop-blur-2xl flex items-center justify-center p-4 animate-fadeIn">
-          <div className="bg-[#0D0D15] border border-gray-800 rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl animate-modalScaleIn flex flex-col max-h-[90vh]">
+        <div className="fixed inset-0 z-[100] bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 animate-fadeIn">
+          <div className="bg-white border border-slate-200 rounded-3xl w-full max-w-lg overflow-hidden shadow-2xl animate-modalScaleIn flex flex-col max-h-[90vh] text-slate-800">
             
             {/* Header */}
-            <div className="p-5 border-b border-gray-800 flex items-center justify-between bg-[#12121D]">
+            <div className="p-5 border-b border-slate-200 flex items-center justify-between bg-slate-50">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-red-600 flex items-center justify-center text-white text-base font-black">
+                <div className="w-8 h-8 rounded-xl bg-[#F84464] flex items-center justify-center text-white text-base font-black shadow-sm">
                   🎬
                 </div>
-                <span className="text-white font-black text-lg">Navigation Hub</span>
+                <span className="text-slate-900 font-extrabold text-base">Navigation Hub</span>
               </div>
               <button
                 onClick={() => setMenuOpen(false)}
-                className="w-8 h-8 rounded-xl bg-gray-900 text-gray-400 hover:text-white flex items-center justify-center text-xs font-bold"
+                className="w-8 h-8 rounded-xl bg-slate-200/80 hover:bg-slate-300 text-slate-600 flex items-center justify-center text-xs font-bold transition"
               >
                 ✕
               </button>
             </div>
 
             {/* Navigation Grid Tiles */}
-            <div className="p-6 overflow-y-auto space-y-4 custom-scrollbar flex-1">
+            <div className="p-6 overflow-y-auto space-y-4 custom-scrollbar flex-1 bg-white">
               <div className="grid grid-cols-2 gap-3">
                 <button
                   onClick={() => {
                     setMenuOpen(false);
                     navigate("/");
                   }}
-                  className="p-4 bg-gray-900/80 hover:bg-gray-800 border border-gray-800 rounded-2xl text-left flex flex-col justify-between h-24 transition"
+                  className="p-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-2xl text-left flex flex-col justify-between h-24 transition group"
                 >
-                  <span className="text-2xl">🏠</span>
-                  <span className="text-xs font-black text-white">Home</span>
+                  <span className="text-2xl group-hover:scale-110 transition-transform">🏠</span>
+                  <span className="text-xs font-bold text-slate-900">Home</span>
                 </button>
 
                 <button
@@ -701,10 +677,10 @@ export default function Navbar() {
                     setMenuOpen(false);
                     navigate("/movies");
                   }}
-                  className="p-4 bg-gray-900/80 hover:bg-gray-800 border border-gray-800 rounded-2xl text-left flex flex-col justify-between h-24 transition"
+                  className="p-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-2xl text-left flex flex-col justify-between h-24 transition group"
                 >
-                  <span className="text-2xl">🎬</span>
-                  <span className="text-xs font-black text-white">Movies & Shows</span>
+                  <span className="text-2xl group-hover:scale-110 transition-transform">🎬</span>
+                  <span className="text-xs font-bold text-slate-900">Movies & Shows</span>
                 </button>
 
                 <button
@@ -712,10 +688,10 @@ export default function Navbar() {
                     setMenuOpen(false);
                     navigate("/snacks");
                   }}
-                  className="p-4 bg-gray-900/80 hover:bg-gray-800 border border-gray-800 rounded-2xl text-left flex flex-col justify-between h-24 transition"
+                  className="p-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-2xl text-left flex flex-col justify-between h-24 transition group"
                 >
-                  <span className="text-2xl">🍿</span>
-                  <span className="text-xs font-black text-white">Snacks Pantry</span>
+                  <span className="text-2xl group-hover:scale-110 transition-transform">🍿</span>
+                  <span className="text-xs font-bold text-slate-900">Snacks Pantry</span>
                 </button>
 
                 <button
@@ -723,10 +699,10 @@ export default function Navbar() {
                     setMenuOpen(false);
                     setWatchlistOpen(true);
                   }}
-                  className="p-4 bg-gray-900/80 hover:bg-gray-800 border border-gray-800 rounded-2xl text-left flex flex-col justify-between h-24 transition"
+                  className="p-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-2xl text-left flex flex-col justify-between h-24 transition group"
                 >
-                  <span className="text-2xl">❤️</span>
-                  <span className="text-xs font-black text-white">Watchlist ({watchlistItems.length})</span>
+                  <span className="text-2xl group-hover:scale-110 transition-transform">❤️</span>
+                  <span className="text-xs font-bold text-slate-900">Watchlist ({watchlistItems.length})</span>
                 </button>
 
                 <button
@@ -734,10 +710,10 @@ export default function Navbar() {
                     setMenuOpen(false);
                     navigate("/gift-cards");
                   }}
-                  className="p-4 bg-gray-900/80 hover:bg-gray-800 border border-gray-800 rounded-2xl text-left flex flex-col justify-between h-24 transition"
+                  className="p-4 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-2xl text-left flex flex-col justify-between h-24 transition group"
                 >
-                  <span className="text-2xl">🎁</span>
-                  <span className="text-xs font-black text-white">Gift Cards</span>
+                  <span className="text-2xl group-hover:scale-110 transition-transform">🎁</span>
+                  <span className="text-xs font-bold text-slate-900">Gift Cards</span>
                 </button>
 
                 <button
@@ -745,10 +721,10 @@ export default function Navbar() {
                     setMenuOpen(false);
                     navigate("/loyalty");
                   }}
-                  className="p-4 bg-amber-950/30 hover:bg-amber-950/50 border border-amber-500/30 rounded-2xl text-left flex flex-col justify-between h-24 transition"
+                  className="p-4 bg-rose-50 hover:bg-rose-100/70 border border-rose-200 rounded-2xl text-left flex flex-col justify-between h-24 transition group"
                 >
-                  <span className="text-2xl">👑</span>
-                  <span className="text-xs font-black text-amber-300">FlickClub VIP</span>
+                  <span className="text-2xl group-hover:scale-110 transition-transform">👑</span>
+                  <span className="text-xs font-bold text-[#F84464]">FlickClub VIP</span>
                 </button>
 
                 <button
@@ -756,10 +732,10 @@ export default function Navbar() {
                     setMenuOpen(false);
                     navigate("/admin/dashboard");
                   }}
-                  className="p-4 bg-amber-950/40 hover:bg-amber-950/60 border border-amber-500/40 rounded-2xl text-left flex flex-col justify-between h-24 transition"
+                  className="p-4 bg-amber-50 hover:bg-amber-100/70 border border-amber-200 rounded-2xl text-left flex flex-col justify-between h-24 transition group"
                 >
-                  <span className="text-2xl">⚙️</span>
-                  <span className="text-xs font-black text-amber-300">Admin Portal</span>
+                  <span className="text-2xl group-hover:scale-110 transition-transform">⚙️</span>
+                  <span className="text-xs font-bold text-amber-700">Admin Portal</span>
                 </button>
               </div>
 
@@ -769,10 +745,10 @@ export default function Navbar() {
                     setMenuOpen(false);
                     navigate("/my-bookings");
                   }}
-                  className="w-full p-4 bg-red-950/30 border border-red-500/30 rounded-2xl text-left flex items-center justify-between text-xs font-bold text-red-300"
+                  className="w-full mt-3 p-3.5 bg-rose-50 hover:bg-rose-100/80 border border-rose-200 rounded-2xl text-left flex items-center justify-between text-xs font-bold text-[#F84464] transition"
                 >
-                  <span className="flex items-center gap-3">
-                    <span className="text-xl">🎟️</span> My Digital Tickets & QR Pass
+                  <span className="flex items-center gap-2.5">
+                    <span className="text-lg">🎟️</span> My Digital Tickets & QR Pass
                   </span>
                   <span>→</span>
                 </button>
@@ -780,11 +756,11 @@ export default function Navbar() {
             </div>
 
             {/* Footer */}
-            <div className="p-4 bg-[#0A0A0F] border-t border-gray-800 flex items-center justify-between text-xs text-gray-400">
-              <span>Location: <strong className="text-white">{selectedCity}</strong></span>
+            <div className="p-4 bg-slate-50 border-t border-slate-200 flex items-center justify-between text-xs text-slate-600">
+              <span>Location: <strong className="text-slate-900">{selectedCity}</strong></span>
               <button
                 onClick={() => setMenuOpen(false)}
-                className="bg-gray-900 hover:bg-gray-800 text-white font-bold px-4 py-2 rounded-xl text-xs border border-gray-800"
+                className="bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold px-4 py-2 rounded-xl text-xs transition"
               >
                 Close Hub
               </button>

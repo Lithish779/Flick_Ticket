@@ -84,7 +84,7 @@ export default function FlickLogo({
             textClasses[size] || textClasses.md
           } flex items-baseline leading-none select-none`}
         >
-          <span className={light ? "text-gray-900 dark:text-white" : "text-white"}>
+          <span className={light ? "text-slate-900" : "text-white"}>
             Flick
           </span>
           <span className="text-[#F84464] ml-0.5">

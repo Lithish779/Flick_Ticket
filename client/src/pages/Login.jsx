@@ -63,8 +63,8 @@ export default function Login() {
     <div className="min-h-screen bg-[#F5F5FA] text-[#222222] flex items-center justify-center p-4 md:p-8 font-sans">
       <div className="w-full max-w-5xl bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-sm grid grid-cols-1 lg:grid-cols-12">
         
-        {/* Left Hero Section (BMS Signature Charcoal Panel) */}
-        <div className="lg:col-span-5 relative bg-[#333545] text-white p-8 md:p-10 flex flex-col justify-between hidden lg:flex">
+        {/* Left Hero Section (Premium Charcoal Panel) */}
+        <div className="lg:col-span-5 relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white p-8 md:p-10 flex flex-col justify-between hidden lg:flex">
           <div>
             <Link to="/" className="inline-block mb-10">
               <FlickLogo light={false} size="md" />
