@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import API from "../api";
 import SpotlightSearch from "./SpotlightSearch";
+import FlickLogo from "./FlickLogo";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -162,22 +163,14 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between gap-4">
           
-          {/* Left: BookMyShow Brand Logo & City Selector */}
+          {/* Left: FlickTicket Brand Logo & City Selector */}
           <div className="flex items-center gap-3 sm:gap-5 shrink-0">
             <Link
               to="/"
               onClick={closeAllModals}
-              className="flex items-center gap-1.5 group shrink-0"
+              className="flex items-center shrink-0"
             >
-              <div className="w-8 h-8 bg-[#F84464] rounded-lg flex items-center justify-center text-white text-base font-black shadow-sm group-hover:scale-105 transition transform">
-                🎬
-              </div>
-              <div className="flex items-baseline font-black tracking-tight text-xl sm:text-2xl">
-                <span className="text-[#F84464]">Book</span>
-                <span className={isHomePage ? "text-gray-900" : "text-gray-900 dark:text-white"}>
-                  MyShow
-                </span>
-              </div>
+              <FlickLogo light={isHomePage} size="md" />
             </Link>
 
             {/* 📍 City Selector Pill */}
@@ -574,10 +567,10 @@ export default function Navbar() {
                   {userName ? userName.charAt(0).toUpperCase() : "U"}
                 </div>
                 <div>
-                  <h3 className="text-base font-bold text-white">{userName || "CineBook User"}</h3>
+                  <h3 className="text-base font-bold text-white">{userName || "FlickTicket User"}</h3>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     <span className="text-[10px] font-bold text-[#F84464] bg-white/20 px-2 py-0.5 rounded-full">
-                      👑 CineClub Member
+                      👑 FlickClub Member
                     </span>
                   </div>
                 </div>

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import FlickLogo from "./FlickLogo";
 
 export default function Footer() {
   const location = useLocation();
@@ -66,9 +67,8 @@ export default function Footer() {
           
           {/* Brand Info */}
           <div className="space-y-3">
-            <Link to="/" className="flex items-center gap-2 text-white font-extrabold text-xl tracking-tight">
-              <span className="w-8 h-8 rounded-lg bg-[#F84464] flex items-center justify-center text-white text-base">🎬</span>
-              <span>Cine<span className="text-[#F84464]">Book</span></span>
+            <Link to="/" className="inline-block">
+              <FlickLogo light={false} size="md" />
             </Link>
             <p className="text-xs text-gray-400 leading-relaxed">
               India's leading entertainment ticketing destination. Book movie tickets, IMAX screenings, gourmet cinema snacks, and VIP experiences seamlessly.
@@ -150,7 +150,7 @@ export default function Footer() {
 
       {/* Copyright Bottom Bar */}
       <div className="bg-[#222433] py-5 px-6 border-t border-gray-700/40 text-center text-[11px] text-gray-400">
-        <p>Copyright 2026 © CineBook Entertainment Pvt. Ltd. | Built by Lithish Kumar. All Rights Reserved.</p>
+        <p>Copyright 2026 © FlickTicket Entertainment Pvt. Ltd. | Built by Lithish Kumar. All Rights Reserved.</p>
         <p className="mt-1 text-gray-500">The content and images used on this site are copyright protected and copyrights vests with the respective owners.</p>
       </div>
 

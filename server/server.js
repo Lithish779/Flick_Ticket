@@ -43,7 +43,7 @@ app.use(express.json());
 
 // ── Health Check ─────────────────────────────────────────────────────────
 app.get("/", (req, res) => {
-  res.json({ status: "ok", message: "CineBook API is running 🎬" });
+  res.json({ status: "ok", message: "FlickTicket API is running 🎬" });
 });
 
 // ── API Routes ────────────────────────────────────────────────────────────

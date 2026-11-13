@@ -490,7 +490,7 @@ const SEED_MOVIES = [
 ];
 
 const THEATRES_LIST = [
-  "CineBook IMAX Grand, Screen 1",
+  "FlickTicket IMAX Grand, Screen 1",
   "PVR Select Citywalk, Delhi",
   "PVR Luxe Cinemas, Audi 3",
   "INOX Megaplex, Audi 2",

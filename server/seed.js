@@ -93,7 +93,7 @@ const seedData = async () => {
     for (const movie of movies) {
       await Show.create({
         movieId: movie._id,
-        theatre: "CineBook IMAX Grand, Screen 1",
+        theatre: "FlickTicket IMAX Grand, Screen 1",
         date: todayStr,
         time: "07:00 PM",
         balconyPrice: 400,
@@ -115,16 +115,16 @@ const seedData = async () => {
     }
 
     await Snack.insertMany([
-      { name: "Caramel Gourmet Popcorn (Large)", price: 290, theatre: "CineBook IMAX Grand, Screen 1" },
-      { name: "Salted Butter Popcorn (Regular)", price: 210, theatre: "CineBook IMAX Grand, Screen 1" },
-      { name: "Loaded Cheese Nachos with Salsa", price: 240, theatre: "CineBook IMAX Grand, Screen 1" },
-      { name: "Cold Brew Iced Coffee", price: 180, theatre: "CineBook IMAX Grand, Screen 1" },
+      { name: "Caramel Gourmet Popcorn (Large)", price: 290, theatre: "FlickTicket IMAX Grand, Screen 1" },
+      { name: "Salted Butter Popcorn (Regular)", price: 210, theatre: "FlickTicket IMAX Grand, Screen 1" },
+      { name: "Loaded Cheese Nachos with Salsa", price: 240, theatre: "FlickTicket IMAX Grand, Screen 1" },
+      { name: "Cold Brew Iced Coffee", price: 180, theatre: "FlickTicket IMAX Grand, Screen 1" },
       { name: "Classic Coke (Fountain 500ml)", price: 150, theatre: "PVR Luxe Cinemas, Audi 3" },
       { name: "Cheese Burst Burger", price: 260, theatre: "PVR Luxe Cinemas, Audi 3" },
     ]);
 
     await Parking.insertMany([
-      { theatre: "CineBook IMAX Grand, Screen 1", priceBike: 30, priceCar: 80 },
+      { theatre: "FlickTicket IMAX Grand, Screen 1", priceBike: 30, priceCar: 80 },
       { theatre: "PVR Luxe Cinemas, Audi 3", priceBike: 25, priceCar: 60 },
     ]);
 

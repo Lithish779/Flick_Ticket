@@ -51,7 +51,7 @@ export default function AdminDashboard() {
     const encodedUri = encodeURI(csvContent);
     const link = document.createElement("a");
     link.setAttribute("href", encodedUri);
-    link.setAttribute("download", `CineBook_Executive_Report_${Date.now()}.csv`);
+    link.setAttribute("download", `FlickTicket_Executive_Report_${Date.now()}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);

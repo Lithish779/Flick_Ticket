@@ -1,4 +1,4 @@
-# CineBook — Entity Relationship (ER) Diagram & Data Dictionary
+# FlickTicket — Entity Relationship (ER) Diagram & Data Dictionary
 **Document Reference**: ALGIONS AI LABS Assessment Package  
 **Author**: Lithish Kumar  
 **Database**: MongoDB (Mongoose ODM)  

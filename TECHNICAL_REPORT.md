@@ -1,4 +1,4 @@
-# CineBook — Enterprise Cinema Hall Ticket Booking System
+# FlickTicket — Enterprise Cinema Hall Ticket Booking System
 ## Technical Architecture, Concurrency Engineering & Security Report
 **Prepared for**: ALGIONS AI LABS Assessment Evaluation  
 **Candidate / Author**: Lithish Kumar  
@@ -8,7 +8,7 @@
 ---
 
 ## 1. Executive Summary
-CineBook is an enterprise-grade Cinema Hall Ticket Booking System built on the MERN (MongoDB, Express.js, React, Node.js) architecture. Engineered for high concurrency, zero-oversell guarantees, and luxury user experience, CineBook provides end-to-end cinema operations including:
+FlickTicket is an enterprise-grade Cinema Hall Ticket Booking System built on the MERN (MongoDB, Express.js, React, Node.js) architecture. Engineered for high concurrency, zero-oversell guarantees, and luxury user experience, FlickTicket provides end-to-end cinema operations including:
 - **Atomic Concurrency Protection**: Zero double-booking guarantee under concurrent seat contention.
 - **Temporary Seat Locking**: 5-minute reservation hold with real-time UI countdown and auto-expiration.
 - **Cancellation & Automated Refund Processing**: Instant seat de-allocation and financial reconciliation.
@@ -68,7 +68,7 @@ In standard cinema booking workflows, two concurrent customers ($User_A$ and $Us
 In naive implementations, both users receive confirmation receipts for the exact same seat, causing double-booking.
 
 ### 3.2 The Solution: Atomic Subdocument Isolation via `findOneAndUpdate`
-CineBook solves this at the database engine level without requiring external distributed lock managers (like Redis Redlock) or heavy table locks:
+FlickTicket solves this at the database engine level without requiring external distributed lock managers (like Redis Redlock) or heavy table locks:
 
 ```javascript
 const seatConditions = seats.map((seatNum) => ({

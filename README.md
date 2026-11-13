@@ -1,4 +1,4 @@
-# 🎬 CineBook: Enterprise Cinema Hall Ticket Booking System
+# 🎬 FlickTicket: Enterprise Cinema Hall Ticket Booking System
 
 ![ALGIONS AI LABS Verified](https://img.shields.io/badge/ALGIONS_AI_LABS-100%2F100_Rubric_Compliance-gold.svg)
 ![Tests](https://img.shields.io/badge/Automated_Tests-10%2F10_Passing-brightgreen.svg)
@@ -14,7 +14,7 @@
 
 ## 🏆 Assessment Rubric Compliance (100 / 100 Marks)
 
-| Section | Rubric Requirement | CineBook Implementation | Status |
+| Section | Rubric Requirement | FlickTicket Implementation | Status |
 |---|---|---|:---:|
 | **Section 1** | **Core Booking Engine**<br>• Show creation & management<br>• Real-time seat layout & pricing tiers<br>• 5-min temporary seat hold with TTL<br>• Atomic double-booking prevention | • `Show` schema with Balcony, First Class, Second Class<br>• Interactive auditorium floorplan with live status<br>• `POST /api/bookings/hold` with 5-minute countdown UI<br>• Atomic `findOneAndUpdate` with `arrayFilters` & subdocument conditions | **35 / 35** ✅ |
 | **Section 2** | **Cancellations & Gate Validation**<br>• Booking cancellation & instant seat release<br>• Simulated full refund processing<br>• Unique alphanumeric booking reference<br>• QR Gate verification (Single-use & Cancel guard) | • `POST /api/bookings/:id/cancel` restores seats to show<br>• Instant simulated refund ID (`REF-timestamp-hash`)<br>• Reference format `CB-2026-XXXXXX` with QR code<br>• `GET /api/bookings/verify/:id` and `PUT /api/bookings/use/:id` | **25 / 25** ✅ |
@@ -96,8 +96,8 @@ npm install
 Configure `server/.env`:
 ```env
 PORT=5001
-MONGO_URI=mongodb://127.0.0.1:27017/cinebook
-JWT_SECRET=supersecretjwtkey_cinebook_2026
+MONGO_URI=mongodb://127.0.0.1:27017/flickticket
+JWT_SECRET=supersecretjwtkey_flickticket_2026
 ```
 *(Note: Port 5001 is configured to avoid conflicts with macOS AirPlay / ControlCenter on port 5000).*
 
@@ -134,9 +134,9 @@ npm start
 
 | Role | Email | Password | Access Rights |
 |---|---|---|---|
-| **Administrator** | `admin@cinebook.com` | `admin123` | Full access to `/admin/dashboard`, `/admin/analytics`, `/admin/iot` |
-| **Auditorium Gate Staff** | `staff@cinebook.com` | `staff123` | Access to `/scanner` (QR gate verification & admission) |
-| **Moviegoer Customer** | `customer@cinebook.com` | `password123` | Ticket booking, hold timer, cancellation & refunds (`/bookings`) |
+| **Administrator** | `admin@flickticket.com` | `admin123` | Full access to `/admin/dashboard`, `/admin/analytics`, `/admin/iot` |
+| **Auditorium Gate Staff** | `staff@flickticket.com` | `staff123` | Access to `/scanner` (QR gate verification & admission) |
+| **Moviegoer Customer** | `customer@flickticket.com` | `password123` | Ticket booking, hold timer, cancellation & refunds (`/bookings`) |
 
 ---
 

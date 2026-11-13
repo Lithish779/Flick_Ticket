@@ -481,7 +481,7 @@ const HeroTrailer = ({ onLaunchClick }) => {
           ctx.fillStyle = "#ff0055";
           ctx.font = '800 11px "Space Grotesk"';
           ctx.textAlign = "center";
-          ctx.fillText("CINEBOOK DIGITAL TICKET", 0, -ticketH / 2 + 35);
+          ctx.fillText("FLICKTICKET DIGITAL TICKET", 0, -ticketH / 2 + 35);
 
           ctx.fillStyle = "#ffffff";
           ctx.font = '900 22px "Outfit"';
@@ -581,7 +581,7 @@ const HeroTrailer = ({ onLaunchClick }) => {
           <div className="flex items-center gap-3 bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-cyan-500/30">
             <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_10px_#00f0ff]" />
             <span className="text-xs font-mono font-bold text-white tracking-widest uppercase">
-              CINEBOOK AI • GESTURE ENGINE
+              FLICKTICKET AI • GESTURE ENGINE
             </span>
           </div>
 
@@ -682,7 +682,7 @@ const HeroTrailer = ({ onLaunchClick }) => {
             <div className="bg-[#0b1021] border border-cyan-500/40 rounded-3xl p-6 max-w-lg w-full text-white shadow-2xl space-y-4">
               <div className="flex items-center justify-between border-b border-white/10 pb-3">
                 <h3 className="text-base font-extrabold font-mono text-cyan-300 flex items-center gap-2">
-                  <span>🖐️</span> CINEBOOK AI MOTION GESTURES
+                  <span>🖐️</span> FLICKTICKET AI MOTION GESTURES
                 </h3>
                 <button
                   onClick={() => setShowGuide(false)}

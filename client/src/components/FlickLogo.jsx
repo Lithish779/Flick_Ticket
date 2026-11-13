@@ -1,0 +1,97 @@
+import React from "react";
+
+export default function FlickLogo({
+  size = "md",
+  light = true,
+  showText = true,
+  className = "",
+}) {
+  const sizeClasses = {
+    sm: "w-7 h-7",
+    md: "w-8 h-8 sm:w-9 sm:h-9",
+    lg: "w-10 h-10 sm:w-11 sm:h-11",
+    xl: "w-12 h-12 sm:w-14 sm:h-14",
+  };
+
+  const textClasses = {
+    sm: "text-lg",
+    md: "text-xl sm:text-2xl",
+    lg: "text-2xl sm:text-3xl",
+    xl: "text-3xl sm:text-4xl",
+  };
+
+  return (
+    <div className={`flex items-center gap-2 group cursor-pointer ${className}`}>
+      {/* 🎟️ Unique FlickTicket Cinema Brand Icon */}
+      <div
+        className={`relative ${
+          sizeClasses[size] || sizeClasses.md
+        } shrink-0 group-hover:scale-105 transition-transform duration-300 drop-shadow-md`}
+      >
+        <svg
+          viewBox="0 0 40 40"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full h-full"
+        >
+          <defs>
+            <linearGradient id="flickTicketGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#F84464" />
+              <stop offset="50%" stopColor="#E03252" />
+              <stop offset="100%" stopColor="#B31238" />
+            </linearGradient>
+            <linearGradient id="flickTicketStar" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#FFE066" />
+              <stop offset="100%" stopColor="#F59E0B" />
+            </linearGradient>
+          </defs>
+
+          {/* Ticket Body with classic cinema side notches */}
+          <path
+            d="M6 10C6 7.79 7.79 6 10 6H30C32.21 6 34 7.79 34 10V16C32.34 16 31 17.34 31 19C31 20.66 32.34 22 34 22V30C34 32.21 32.21 34 30 34H10C7.79 34 6 32.21 6 30V22C7.66 22 9 20.66 9 19C9 17.34 7.66 16 6 16V10Z"
+            fill="url(#flickTicketGrad)"
+          />
+
+          {/* Perforated ticket stub line */}
+          <line
+            x1="24.5"
+            y1="8"
+            x2="24.5"
+            y2="32"
+            stroke="rgba(255, 255, 255, 0.45)"
+            strokeWidth="1.5"
+            strokeDasharray="2.5 2.5"
+          />
+
+          {/* Dynamic Bold "F" Letterform */}
+          <path
+            d="M13 12H20.5C21.05 12 21.5 12.45 21.5 13C21.5 13.55 21.05 14 20.5 14H15.5V17.5H19.5C20.05 17.5 20.5 17.95 20.5 18.5C20.5 19.05 20.05 19.5 19.5 19.5H15.5V26C15.5 26.55 15.05 27 14.5 27C13.95 27 13.5 26.55 13.5 26V12.5C13.5 12.22 13.28 12 13 12Z"
+            fill="#FFFFFF"
+          />
+
+          {/* Cinema Golden Star in Stub */}
+          <polygon
+            points="29,16 30.1,18.3 32.6,18.7 30.8,20.5 31.2,23 29,21.8 26.8,23 27.2,20.5 25.4,18.7 27.9,18.3"
+            fill="url(#flickTicketStar)"
+          />
+        </svg>
+      </div>
+
+      {/* Brand Name Typography */}
+      {showText && (
+        <div
+          className={`font-black tracking-tight ${
+            textClasses[size] || textClasses.md
+          } flex items-baseline leading-none select-none`}
+        >
+          <span className={light ? "text-gray-900 dark:text-white" : "text-white"}>
+            Flick
+          </span>
+          <span className="text-[#F84464] ml-0.5">
+            Ticket
+          </span>
+        </div>
+      )}
+    </div>
+  );
+}

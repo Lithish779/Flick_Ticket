@@ -72,7 +72,7 @@ function TrailerModal({ isOpen, onClose, trailerUrl, movieTitle }) {
 
         {/* Footer */}
         <div className="px-6 py-3 bg-[#0A0A0F] border-t border-gray-800 flex justify-between items-center text-xs text-gray-400">
-          <span>Streaming inside CineBook</span>
+          <span>Streaming inside FlickTicket</span>
           <button
             onClick={onClose}
             className="px-5 py-2 text-xs font-bold bg-red-600 hover:bg-red-700 text-white rounded-xl transition shadow-md shadow-red-600/20"

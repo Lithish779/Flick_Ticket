@@ -90,7 +90,7 @@ function MyBookings() {
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
       pdf.addImage(imgData, "PNG", 10, 10, imgWidth, imgHeight);
-      pdf.save(`CineBook_Ticket_${id}.pdf`);
+      pdf.save(`FlickTicket_${id}.pdf`);
     });
   };
 

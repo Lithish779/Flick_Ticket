@@ -41,7 +41,7 @@ const PageLoader = () => (
   <div className="min-h-[70vh] flex flex-col items-center justify-center bg-[#F5F5FA] text-[#222222]">
     <div className="w-12 h-12 border-4 border-[#F84464]/30 border-t-[#F84464] rounded-full animate-spin mb-4"></div>
     <span className="text-xs font-bold text-gray-500 uppercase tracking-widest animate-pulse">
-      Loading CineBook...
+      Loading FlickTicket...
     </span>
   </div>
 );

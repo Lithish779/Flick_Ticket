@@ -1,6 +1,6 @@
-# 🎬 CineBook Feature Recommendations & Technical Roadmap
+# 🎬 FlickTicket Feature Recommendations & Technical Roadmap
 
-This document outlines the feature recommendations and enhancement roadmap for the **CineBook Movie Booking Ecosystem** (MERN Stack).
+This document outlines the feature recommendations and enhancement roadmap for the **FlickTicket Movie Booking Ecosystem** (MERN Stack).
 
 ---
 

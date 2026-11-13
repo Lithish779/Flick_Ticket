@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import FlickLogo from "./FlickLogo";
 
 export default function AdminNavbar() {
   const location = useLocation();
@@ -27,14 +28,12 @@ export default function AdminNavbar() {
           <div className="flex items-center gap-3 shrink-0">
             <Link
               to="/admin/dashboard"
-              className="flex items-center gap-2.5 group"
+              className="flex items-center gap-2 group"
             >
-              <div className="w-9 h-9 bg-gradient-to-tr from-amber-500 via-red-600 to-purple-600 rounded-xl flex items-center justify-center text-white text-lg font-black shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
-                ⚙️
-              </div>
-              <div className="flex flex-col">
-                <span className="text-white font-black text-base tracking-tight leading-none group-hover:text-amber-400 transition">
-                  CineBook Admin
+              <FlickLogo size="sm" light={false} />
+              <div className="flex flex-col ml-1 border-l border-gray-800 pl-2">
+                <span className="text-white font-bold text-xs tracking-tight leading-none group-hover:text-amber-400 transition">
+                  Admin Console
                 </span>
                 <span className="text-[9px] text-amber-500 font-bold uppercase tracking-widest mt-0.5">
                   Executive Suite

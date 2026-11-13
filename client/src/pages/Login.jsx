@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../api";
+import FlickLogo from "../components/FlickLogo";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -65,15 +66,13 @@ export default function Login() {
         {/* Left Hero Section (BMS Signature Charcoal Panel) */}
         <div className="lg:col-span-5 relative bg-[#333545] text-white p-8 md:p-10 flex flex-col justify-between hidden lg:flex">
           <div>
-            <Link to="/" className="inline-flex items-center gap-2 mb-10">
-              <span className="text-2xl font-black tracking-tight text-white">
-                Cine<span className="text-[#F84464]">Book</span>
-              </span>
+            <Link to="/" className="inline-block mb-10">
+              <FlickLogo light={false} size="md" />
             </Link>
 
             <div className="space-y-4">
               <span className="bg-[#F84464]/20 border border-[#F84464]/30 text-[#F84464] text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">
-                🍿 CinePass Exclusive
+                🍿 FlickPass Exclusive
               </span>
               <h2 className="text-3xl font-extrabold leading-tight text-white">
                 It All Starts Here.
@@ -194,7 +193,7 @@ export default function Login() {
               disabled={loading}
               className="w-full bg-[#F84464] hover:bg-[#E03252] disabled:opacity-50 text-white font-extrabold py-3 rounded-xl transition shadow-xs text-sm flex items-center justify-center gap-2 mt-2 cursor-pointer"
             >
-              {loading ? "Authenticating..." : "Sign In to CineBook"}
+              {loading ? "Authenticating..." : "Sign In to FlickTicket"}
             </button>
           </form>
 

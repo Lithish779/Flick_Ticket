@@ -74,7 +74,7 @@ export default function AdminAnalytics() {
     const blob = new Blob([csv], { type: "text/csv" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `CineBook_Analytics_${Date.now()}.csv`;
+    link.download = `FlickTicket_Analytics_${Date.now()}.csv`;
     link.click();
   };
 
@@ -82,7 +82,7 @@ export default function AdminAnalytics() {
   const exportPDF = () => {
     if (!data.movieStats) return;
     const doc = new jsPDF();
-    doc.text("CineBook Financial Analytics Report", 14, 15);
+    doc.text("FlickTicket Financial Analytics Report", 14, 15);
 
     autoTable(doc, {
       startY: 22,
@@ -90,7 +90,7 @@ export default function AdminAnalytics() {
       body: data.movieStats.map((m) => [m.title, m.ticketsSold, `Rs. ${m.ticketRevenue}`]),
     });
 
-    doc.save(`CineBook_Financial_Report_${Date.now()}.pdf`);
+    doc.save(`FlickTicket_Financial_Report_${Date.now()}.pdf`);
   };
 
   const grandTotalRevenue = data.summary?.totalRevenue || 1;

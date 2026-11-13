@@ -1,4 +1,4 @@
-# CineBook — REST API Specification
+# FlickTicket — REST API Specification
 **Author**: Lithish Kumar  
 **Base URL**: `http://localhost:5001/api`  
 **Protocol**: HTTP/1.1  

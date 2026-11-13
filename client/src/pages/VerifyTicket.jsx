@@ -67,7 +67,7 @@ function VerifyTicket() {
             Invalid Ticket Pass
           </h2>
           <p className="text-xs text-gray-500">
-            This booking reference was not recognized by the CineBook gate database.
+            This booking reference was not recognized by the FlickTicket gate database.
           </p>
           <Link
             to="/"
@@ -94,7 +94,7 @@ function VerifyTicket() {
         {/* Top Header Badge */}
         <div className="bg-[#333545] text-white py-3 px-6 flex justify-between items-center text-xs">
           <span className="font-extrabold tracking-wider uppercase text-gray-300">
-            CineBook Admission Pass
+            FlickTicket Admission Pass
           </span>
           <span className="font-mono text-[#F84464] font-bold bg-white/10 px-2 py-0.5 rounded">
             {booking.bookingReference || booking._id}

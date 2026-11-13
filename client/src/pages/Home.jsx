@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo, lazy, Suspense } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import API from "../api";
+import FlickLogo from "../components/FlickLogo";
 
 const TrailerModal = lazy(() => import("../components/TrailerModal"));
 
@@ -470,10 +471,7 @@ export default function Home() {
           
           {/* Left: Logo & Mission Description & App Badges */}
           <div className="md:col-span-6 space-y-4">
-            <div className="flex items-center gap-1.5">
-              <span className="text-xl font-black text-white">Book</span>
-              <span className="text-xl font-black text-[#F84464]">MyShow</span>
-            </div>
+            <FlickLogo light={false} size="lg" />
 
             <p className="text-xs text-gray-400 leading-relaxed max-w-md">
               Experience seamless movie ticket booking with real-time seat
@@ -545,7 +543,7 @@ export default function Home() {
 
         {/* Bottom Copyright Strip (matching screenshot) */}
         <div className="max-w-7xl mx-auto pt-6 text-center text-xs text-gray-500">
-          © 2026 BookMyShow — Developed by Lithish Kumar. All Rights Reserved.
+          © 2026 FlickTicket — Developed by Lithish Kumar. All Rights Reserved.
         </div>
       </footer>
 

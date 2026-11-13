@@ -64,7 +64,7 @@ export default function SpotlightSearch({ isOpen, onClose }) {
         {/* Results Body */}
         <div className="max-h-[60vh] overflow-y-auto p-4 space-y-5 custom-scrollbar">
           {loading ? (
-            <div className="py-8 text-center text-xs text-gray-400">Searching CineBook directory...</div>
+            <div className="py-8 text-center text-xs text-gray-400">Searching FlickTicket directory...</div>
           ) : (
             <>
               {/* Movies Section */}

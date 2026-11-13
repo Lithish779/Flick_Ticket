@@ -12,9 +12,9 @@ export default function GiftCards() {
   const cardThemes = [
     {
       id: "classic",
-      name: "CineBook Red",
+      name: "FlickTicket Red",
       bg: "bg-gradient-to-r from-[#F84464] to-[#c72844] border-red-400 text-white",
-      badge: "🎬 CineBook Official",
+      badge: "🎬 FlickTicket Official",
     },
     {
       id: "gold",
@@ -42,7 +42,7 @@ export default function GiftCards() {
       return;
     }
 
-    const code = "CINEGIFT-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+    const code = "FLICKGIFT-" + Math.random().toString(36).substring(2, 8).toUpperCase();
     setGeneratedVoucher({
       code,
       amount: finalAmount,
@@ -62,7 +62,7 @@ export default function GiftCards() {
             🎁 Gift Movies & Experiences
           </span>
           <h1 className="text-3xl md:text-4xl font-extrabold text-[#222222] tracking-tight">
-            CineBook Gift Cards
+            FlickTicket Gift Cards
           </h1>
           <p className="text-xs md:text-sm text-gray-500">
             Send digital movie passes & snack vouchers instantly to friends and family
@@ -88,7 +88,7 @@ export default function GiftCards() {
                   <span className="text-[10px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full bg-black/20 text-white backdrop-blur-xs">
                     {cardThemes.find((t) => t.id === selectedTheme)?.badge}
                   </span>
-                  <h3 className="text-2xl font-black text-white mt-3">CineBook Pass</h3>
+                  <h3 className="text-2xl font-black text-white mt-3">FlickTicket Pass</h3>
                 </div>
                 <div className="text-right">
                   <span className="text-[10px] text-white/80 block uppercase font-bold">Gift Value</span>

@@ -1,7 +1,7 @@
 {
   "name": "server",
   "version": "1.0.0",
-  "description": "CineBook Movie Booking System - Backend API",
+  "description": "FlickTicket Movie Booking System - Backend API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

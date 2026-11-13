@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import API from "../api";
+import FlickLogo from "../components/FlickLogo";
 
 export default function Register() {
   const navigate = useNavigate();
@@ -77,10 +78,8 @@ export default function Register() {
         {/* Left Visual Hero (BMS Charcoal Panel) */}
         <div className="lg:col-span-5 relative bg-[#333545] text-white p-8 md:p-10 flex flex-col justify-between hidden lg:flex">
           <div>
-            <Link to="/" className="inline-flex items-center gap-2 mb-10">
-              <span className="text-2xl font-black tracking-tight text-white">
-                Cine<span className="text-[#F84464]">Book</span>
-              </span>
+            <Link to="/" className="inline-block mb-10">
+              <FlickLogo light={false} size="md" />
             </Link>
 
             <div className="space-y-4">
@@ -91,7 +90,7 @@ export default function Register() {
                 Join Millions of Moviegoers.
               </h2>
               <p className="text-xs text-gray-300 leading-relaxed">
-                Create your account in seconds to earn CineClub rewards, save watchlists, and enjoy seamless bookings.
+                Create your account in seconds to earn FlickClub rewards, save watchlists, and enjoy seamless bookings.
               </p>
             </div>
           </div>
