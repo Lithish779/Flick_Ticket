@@ -87,3 +87,4 @@ async function seedDefaultUsers() {
 }
 
 module.exports = { seedDefaultUsers, DEFAULT_USERS };
+

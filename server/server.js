@@ -1,3 +1,6 @@
+const path = require("path");
+const fs = require("fs");
+require("dotenv").config({ path: path.join(__dirname, ".env") });
 require("dotenv").config();
 
 const express = require("express");
@@ -12,7 +15,7 @@ if (process.env.NODE_ENV !== "test") {
 }
 
 // ── CORS ──────────────────────────────────────────────────────────────────
-// Allows localhost in dev + all Vercel preview/production deployments
+// Allows localhost in dev + all Vercel and Render deployments
 app.use(
   cors({
     origin: function (origin, callback) {
@@ -21,13 +24,15 @@ app.use(
         "https://movie-booking-system-mern-fawn.vercel.app",
       ];
 
-      // Allow requests with no origin (mobile apps, Postman, curl)
+      // Allow requests with no origin (mobile apps, Postman, curl, server-to-server)
       if (!origin) return callback(null, true);
 
-      // Allow exact matches or any *.vercel.app preview URL
+      // Allow exact matches or any *.vercel.app or *.onrender.com preview URL
       if (
         allowedExact.includes(origin) ||
-        origin.endsWith(".vercel.app")
+        origin.endsWith(".vercel.app") ||
+        origin.endsWith(".onrender.com") ||
+        origin.includes("localhost")
       ) {
         return callback(null, true);
       }
@@ -60,6 +65,16 @@ app.use("/api/analytics", require("./routes/analyticsRoutes"));
 app.use("/api/reviews",   require("./routes/reviewRoutes"));
 app.use("/api/coupons",   require("./routes/couponRoutes"));
 app.use("/api/snack-orders", require("./routes/snackOrderRoutes"));
+
+// ── Static Frontend Serving (Production Monorepo Support) ──────────────────
+const clientBuildPath = path.join(__dirname, "../client/build");
+if (fs.existsSync(clientBuildPath)) {
+  app.use(express.static(clientBuildPath));
+  app.get("*", (req, res, next) => {
+    if (req.path.startsWith("/api")) return next();
+    res.sendFile(path.join(clientBuildPath, "index.html"));
+  });
+}
 
 // ── 404 Handler ───────────────────────────────────────────────────────────
 app.use((req, res) => {
