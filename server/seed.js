@@ -4,11 +4,15 @@ const Movie = require("./models/Movie");
 const Show = require("./models/Show");
 const Snack = require("./models/Snack");
 const Parking = require("./models/Parking");
+const { seedDefaultUsers } = require("./services/userSeeder");
 
 const seedData = async () => {
   try {
     await mongoose.connect(process.env.MONGO_URI);
     console.log("Connected to MongoDB for seeding...");
+
+    // Seed/verify default accounts regardless of movie state
+    await seedDefaultUsers();
 
     const movieCount = await Movie.countDocuments();
     if (movieCount > 0) {

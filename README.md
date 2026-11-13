@@ -132,11 +132,11 @@ npm start
 
 ## 🔐 Demo Credentials
 
-| Role | Email | Password | Access Rights |
+| Role | Email (Both Supported) | Password | Access Rights |
 |---|---|---|---|
-| **Administrator** | `admin@flickticket.com` | `admin123` | Full access to `/admin/dashboard`, `/admin/analytics`, `/admin/iot` |
-| **Auditorium Gate Staff** | `staff@flickticket.com` | `staff123` | Access to `/scanner` (QR gate verification & admission) |
-| **Moviegoer Customer** | `customer@flickticket.com` | `password123` | Ticket booking, hold timer, cancellation & refunds (`/bookings`) |
+| **Administrator** | `admin@cinebook.com` / `admin@flickticket.com` | `admin123` | Full access to `/admin/dashboard`, `/admin/analytics`, `/admin/iot` |
+| **Auditorium Gate Staff** | `staff@cinebook.com` / `staff@flickticket.com` | `staff123` | Access to `/scanner` (QR gate verification & admission) |
+| **Moviegoer Customer** | `customer@cinebook.com` / `customer@flickticket.com` | `password123` | Ticket booking, hold timer, cancellation & refunds (`/bookings`) |
 
 ---
 

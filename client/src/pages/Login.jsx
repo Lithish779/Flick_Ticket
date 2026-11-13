@@ -102,12 +102,50 @@ export default function Login() {
           {/* Header */}
           <div className="mb-6">
             <div className="lg:hidden flex items-center gap-2 mb-4">
-              <span className="text-xl font-black text-[#222222]">Cine<span className="text-[#F84464]">Book</span></span>
+              <FlickLogo light={true} size="sm" />
             </div>
             <h1 className="text-2xl md:text-3xl font-extrabold text-[#222222]">Welcome Back</h1>
             <p className="text-xs md:text-sm text-gray-500 mt-1">
-              Sign in with your email or continue with Google ID
+              Sign in with your email, select a demo profile, or continue with Google ID
             </p>
+          </div>
+
+          {/* 🔑 1-Click Quick Demo Credentials */}
+          <div className="mb-5 p-3.5 bg-[#F5F5FA] border border-gray-200 rounded-2xl">
+            <span className="text-[10px] font-black uppercase tracking-wider text-gray-500 block mb-2">
+              ⚡ 1-Click Assessment Credentials
+            </span>
+            <div className="grid grid-cols-3 gap-2">
+              <button
+                type="button"
+                onClick={() => setForm({ email: "admin@cinebook.com", password: "admin123" })}
+                className="p-2.5 bg-amber-50 hover:bg-amber-100 border border-amber-200 rounded-xl text-left transition cursor-pointer"
+                title="Fill Admin: admin@cinebook.com / admin123"
+              >
+                <div className="text-xs font-bold text-amber-900 flex items-center gap-1">👑 Admin</div>
+                <div className="text-[10px] text-amber-700 truncate font-mono">admin123</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setForm({ email: "staff@cinebook.com", password: "staff123" })}
+                className="p-2.5 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 rounded-xl text-left transition cursor-pointer"
+                title="Fill Gate Staff: staff@cinebook.com / staff123"
+              >
+                <div className="text-xs font-bold text-emerald-900 flex items-center gap-1">🎟️ Staff</div>
+                <div className="text-[10px] text-emerald-700 truncate font-mono">staff123</div>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setForm({ email: "customer@cinebook.com", password: "password123" })}
+                className="p-2.5 bg-rose-50 hover:bg-rose-100 border border-rose-200 rounded-xl text-left transition cursor-pointer"
+                title="Fill Customer: customer@cinebook.com / password123"
+              >
+                <div className="text-xs font-bold text-rose-900 flex items-center gap-1">🍿 User</div>
+                <div className="text-[10px] text-rose-700 truncate font-mono">password123</div>
+              </button>
+            </div>
           </div>
 
           {/* 🔴 Error Alert */}

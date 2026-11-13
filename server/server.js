@@ -7,7 +7,9 @@ const connectDB = require("./config/db");
 const app = express();
 
 // ── Connect to MongoDB ────────────────────────────────────────────────────
-connectDB();
+if (process.env.NODE_ENV !== "test") {
+  connectDB();
+}
 
 // ── CORS ──────────────────────────────────────────────────────────────────
 // Allows localhost in dev + all Vercel preview/production deployments

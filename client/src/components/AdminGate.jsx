@@ -24,8 +24,8 @@ function AdminGate({ children }) {
     }
   };
 
-  // If they are a logged-in admin, let them through
-  if (token && (role === "admin" || role === "theaterOwner")) {
+  // If they are a logged-in admin or authorized staff, let them through
+  if (token && (role === "admin" || role === "theaterOwner" || role === "staff")) {
     return children;
   }
 

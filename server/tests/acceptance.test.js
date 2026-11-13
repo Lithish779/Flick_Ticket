@@ -17,7 +17,7 @@ describe("ALGIONS AI LABS - Cinema Hall Ticket Booking System Acceptance Test Su
   beforeAll(async () => {
     // Ensure DB connected
     if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/flickticket");
+      await mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/cinebook");
     }
 
     // Create test users

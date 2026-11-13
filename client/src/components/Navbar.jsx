@@ -630,6 +630,19 @@ export default function Navbar() {
                 </span>
                 <span className="text-amber-500">›</span>
               </button>
+
+              <button
+                onClick={() => {
+                  setUserMenuOpen(false);
+                  navigate("/scanner");
+                }}
+                className="w-full p-3 bg-emerald-50 hover:bg-emerald-100/80 border border-emerald-200 rounded-xl text-left flex items-center justify-between text-xs font-bold text-emerald-800 transition"
+              >
+                <span className="flex items-center gap-2.5">
+                  <span className="text-base">🎟️</span> Gate Staff QR Scanner
+                </span>
+                <span className="text-emerald-500">›</span>
+              </button>
             </div>
 
             {/* Logout Button */}
@@ -735,7 +748,7 @@ export default function Navbar() {
                   className="p-4 bg-amber-950/30 hover:bg-amber-950/50 border border-amber-500/30 rounded-2xl text-left flex flex-col justify-between h-24 transition"
                 >
                   <span className="text-2xl">👑</span>
-                  <span className="text-xs font-black text-amber-300">CineClub VIP</span>
+                  <span className="text-xs font-black text-amber-300">FlickClub VIP</span>
                 </button>
 
                 <button
