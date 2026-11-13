@@ -1,0 +1,10 @@
+{
+  "name": "flick-ticket",
+  "version": "1.0.0",
+  "description": "Flick Ticket - Full-Stack Cinema Hall Ticket Booking Platform",
+  "author": "Lithish Kumar",
+  "dependencies": {
+    "chart.js": "^4.5.1",
+    "react-chartjs-2": "^5.3.1"
+  }
+}
