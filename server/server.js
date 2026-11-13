@@ -5,6 +5,7 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+const mongoose = require("mongoose");
 const connectDB = require("./config/db");
 
 const app = express();
@@ -50,7 +51,26 @@ app.use(express.json());
 
 // ── Health Check ─────────────────────────────────────────────────────────
 app.get("/", (req, res) => {
-  res.json({ status: "ok", message: "FlickTicket API is running 🎬" });
+  const dbStates = ["disconnected", "connected", "connecting", "disconnecting"];
+  const dbStatus = dbStates[mongoose.connection.readyState] || "unknown";
+  res.json({
+    status: "ok",
+    message: "FlickTicket API is running 🎬",
+    database: dbStatus,
+    timestamp: new Date().toISOString(),
+  });
+});
+
+// ── Database Availability Guard ───────────────────────────────────────────
+app.use("/api", (req, res, next) => {
+  if (mongoose.connection.readyState !== 1) {
+    return res.status(503).json({
+      message:
+        "MongoDB is currently connecting or not configured. If running on Render, please make sure the MONGO_URI environment variable is added in Render Dashboard Settings.",
+      database: "disconnected",
+    });
+  }
+  next();
 });
 
 // ── API Routes ────────────────────────────────────────────────────────────

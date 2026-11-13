@@ -4,8 +4,17 @@ const { seedDefaultUsers } = require("../services/userSeeder");
 
 const connectDB = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI || "mongodb://127.0.0.1:27017/cinebook");
+    const mongoUri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/cinebook";
+    
+    if (!process.env.MONGO_URI) {
+      console.warn("⚠️ Warning: MONGO_URI is not set in environment variables! Using localhost fallback.");
+    }
+
+    await mongoose.connect(mongoUri, {
+      serverSelectionTimeoutMS: 5000,
+    });
     console.log("MongoDB Connected");
+
     if (process.env.NODE_ENV !== "test") {
       // Automatically seed movies across all languages and their showtimes
       await seedAllMoviesAndShows();
@@ -13,8 +22,10 @@ const connectDB = async () => {
       await seedDefaultUsers();
     }
   } catch (error) {
-    console.error(error);
-    if (process.env.NODE_ENV !== "test") process.exit(1);
+    console.error("❌ MongoDB Connection Error:", error.message);
+    if (!process.env.MONGO_URI) {
+      console.error("👉 Please add MONGO_URI in your Render Environment Variables (e.g. from MongoDB Atlas).");
+    }
   }
 };
 
