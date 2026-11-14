@@ -1,11 +1,16 @@
 import axios from "axios";
 
 // ── Smart API Base URL Resolver ──────────────────────────────────────────────
-// Always targets the live deployed Render backend: https://flick-ticket-bt8v.onrender.com
-const DEPLOYED_BACKEND_URL = "https://flick-ticket-bt8v.onrender.com";
+// Default deployed Render backend:
+const DEPLOYED_RENDER_BACKEND = "https://flick-ticket-bt8v.onrender.com";
 
 const getBaseURL = () => {
-  return process.env.REACT_APP_API_URL || DEPLOYED_BACKEND_URL;
+  // When running in the browser on Vercel (*.vercel.app), use same-origin relative calls ("")
+  // This routes through Vercel's serverless /api layer, guaranteeing ZERO CORS blocks and ZERO 502s!
+  if (typeof window !== "undefined" && window.location.hostname.endsWith(".vercel.app")) {
+    return "";
+  }
+  return process.env.REACT_APP_API_URL || DEPLOYED_RENDER_BACKEND;
 };
 
 const API = axios.create({
