@@ -27,7 +27,15 @@ export default function Login() {
       localStorage.setItem("userId", data._id);
       localStorage.setItem("role", data.role || "user");
       localStorage.setItem("userName", data.name);
-      navigate("/");
+
+      const userRole = (data.role || "").toLowerCase();
+      if (userRole === "admin" || userRole === "theaterowner") {
+        navigate("/admin/dashboard");
+      } else if (userRole === "staff") {
+        navigate("/scanner");
+      } else {
+        navigate("/movies");
+      }
     } catch (err) {
       setError(
         err.response?.data?.message || "Invalid credentials. Please check your details."
@@ -51,7 +59,15 @@ export default function Login() {
       localStorage.setItem("role", data.role || "user");
       localStorage.setItem("userName", data.name);
       setShowGoogleModal(false);
-      navigate("/");
+
+      const userRole = (data.role || "").toLowerCase();
+      if (userRole === "admin" || userRole === "theaterowner") {
+        navigate("/admin/dashboard");
+      } else if (userRole === "staff") {
+        navigate("/scanner");
+      } else {
+        navigate("/movies");
+      }
     } catch (err) {
       setError(err.response?.data?.message || "Google registration failed.");
     } finally {

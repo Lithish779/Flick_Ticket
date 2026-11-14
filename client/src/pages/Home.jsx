@@ -27,6 +27,7 @@ export default function Home() {
   const [activeHero, setActiveHero] = useState(0);
   const [trailerMovie, setTrailerMovie] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState("All");
+  const [selectedGenre, setSelectedGenre] = useState("All");
   const [visibleCount, setVisibleCount] = useState(8);
   const [watchlistIds, setWatchlistIds] = useState([]);
   const [toastMsg, setToastMsg] = useState("");
@@ -93,6 +94,25 @@ export default function Home() {
     ];
   }, []);
 
+  const genres = useMemo(() => {
+    return [
+      "All",
+      "Action",
+      "Adventure",
+      "Animation",
+      "Comedy",
+      "Crime",
+      "Drama",
+      "Fantasy",
+      "Horror",
+      "Mystery",
+      "Mythology",
+      "Sci-Fi",
+      "Thriller",
+      "Romance",
+    ];
+  }, []);
+
   const filteredMovies = useMemo(() => {
     return movies.filter((movie) => {
       const matchLang =
@@ -103,9 +123,21 @@ export default function Home() {
           movie.languages.some(
             (l) => l.toLowerCase() === selectedLanguage.toLowerCase()
           ));
-      return matchLang;
+
+      let matchGenre = selectedGenre === "All";
+      if (!matchGenre) {
+        const selNorm = selectedGenre.toLowerCase().replace(/[^a-z0-9]/g, "");
+        const movieGenreStr = [
+          movie.genre || "",
+          Array.isArray(movie.genres) ? movie.genres.join(" ") : "",
+        ].join(" ");
+        const movieNorm = movieGenreStr.toLowerCase().replace(/[^a-z0-9]/g, "");
+        matchGenre = movieNorm.includes(selNorm);
+      }
+
+      return matchLang && matchGenre;
     });
-  }, [movies, selectedLanguage]);
+  }, [movies, selectedLanguage, selectedGenre]);
 
   const displayedMovies = useMemo(() => {
     return filteredMovies.slice(0, visibleCount);
@@ -322,36 +354,79 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Language Filter Chips Strip (BookMyShow Multi-Language Support) */}
-        <div className="flex items-center gap-2 overflow-x-auto pb-4 mb-6 custom-scrollbar">
-          {languages.map((lang) => {
-            const isSelected = selectedLanguage === lang;
-            return (
+        {/* Filter Chips: Languages & Genres */}
+        <div className="space-y-3 mb-6">
+          {/* Language Filter Chips */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar">
+            <span className="text-xs font-bold text-gray-500 uppercase tracking-wider shrink-0 pr-1">
+              Language:
+            </span>
+            {languages.map((lang) => {
+              const isSelected = selectedLanguage === lang;
+              return (
+                <button
+                  key={lang}
+                  onClick={() => setSelectedLanguage(selectedLanguage === lang ? "All" : lang)}
+                  className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer border ${
+                    isSelected
+                      ? "bg-[#F84464] text-white border-[#F84464] shadow-sm font-bold"
+                      : "bg-[#121218] border-gray-800 text-gray-400 hover:text-white hover:border-gray-700"
+                  }`}
+                >
+                  {lang}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Genre Filter Chips */}
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar">
+            <span className="text-xs font-bold text-gray-500 uppercase tracking-wider shrink-0 pr-1">
+              Genre:
+            </span>
+            {genres.map((g) => {
+              const isSelected = selectedGenre === g;
+              return (
+                <button
+                  key={g}
+                  onClick={() => setSelectedGenre(selectedGenre === g ? "All" : g)}
+                  className={`px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer border ${
+                    isSelected
+                      ? "bg-white text-slate-900 border-white shadow-sm font-bold"
+                      : "bg-[#121218] border-gray-800 text-gray-400 hover:text-white hover:border-gray-700"
+                  }`}
+                >
+                  {g}
+                </button>
+              );
+            })}
+            {(selectedLanguage !== "All" || selectedGenre !== "All") && (
               <button
-                key={lang}
-                onClick={() => setSelectedLanguage(lang)}
-                className={`px-3.5 py-1 rounded-full text-xs font-semibold whitespace-nowrap transition cursor-pointer border ${
-                  isSelected
-                    ? "bg-[#F84464] text-white border-[#F84464] shadow-sm font-bold"
-                    : "bg-[#121218] border-gray-800 text-gray-400 hover:text-white hover:border-gray-700"
-                }`}
+                onClick={() => {
+                  setSelectedLanguage("All");
+                  setSelectedGenre("All");
+                }}
+                className="px-2.5 py-1 rounded-full text-[11px] font-bold text-[#F84464] bg-[#F84464]/10 hover:bg-[#F84464]/20 border border-[#F84464]/30 transition shrink-0"
               >
-                {lang}
+                ✕ Reset
               </button>
-            );
-          })}
+            )}
+          </div>
         </div>
 
         {/* Movies Grid (Exact Match to Screenshot Card Style) */}
         {displayedMovies.length === 0 ? (
           <div className="bg-[#101016] border border-gray-800 rounded-2xl p-12 text-center text-gray-400">
             <span className="text-3xl block mb-2">🎬</span>
-            <p className="font-semibold text-sm">No movies found in this language.</p>
+            <p className="font-semibold text-sm">No movies found matching the selected filters.</p>
             <button
-              onClick={() => setSelectedLanguage("All")}
+              onClick={() => {
+                setSelectedLanguage("All");
+                setSelectedGenre("All");
+              }}
               className="mt-3 text-xs text-[#F84464] font-bold hover:underline"
             >
-              Reset to All Languages
+              Reset All Filters
             </button>
           </div>
         ) : (

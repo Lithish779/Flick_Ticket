@@ -104,12 +104,17 @@ function Movies() {
     return [
       "All",
       "Action",
-      "Drama",
-      "Sci-Fi",
-      "Comedy",
-      "Thriller",
-      "Horror",
       "Adventure",
+      "Animation",
+      "Comedy",
+      "Crime",
+      "Drama",
+      "Fantasy",
+      "Horror",
+      "Mystery",
+      "Mythology",
+      "Sci-Fi",
+      "Thriller",
       "Romance",
     ];
   }, []);
@@ -145,9 +150,16 @@ function Movies() {
           movie.languages.some((l) => l.toLowerCase().includes(search.toLowerCase())));
 
       // Genre
-      const matchGenre =
-        selectedGenre === "All" ||
-        movie.genre?.toLowerCase().includes(selectedGenre.toLowerCase());
+      let matchGenre = selectedGenre === "All";
+      if (!matchGenre) {
+        const selNorm = selectedGenre.toLowerCase().replace(/[^a-z0-9]/g, "");
+        const movieGenreStr = [
+          movie.genre || "",
+          Array.isArray(movie.genres) ? movie.genres.join(" ") : "",
+        ].join(" ");
+        const movieNorm = movieGenreStr.toLowerCase().replace(/[^a-z0-9]/g, "");
+        matchGenre = movieNorm.includes(selNorm);
+      }
 
       // Language
       const matchLang =
@@ -374,7 +386,7 @@ function Movies() {
               return (
                 <button
                   key={lang}
-                  onClick={() => setSelectedLanguage(lang)}
+                  onClick={() => setSelectedLanguage(selectedLanguage === lang ? "All" : lang)}
                   className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition shrink-0 ${
                     isSelected
                       ? "bg-[#F84464] text-white shadow-xs font-bold"
@@ -400,7 +412,7 @@ function Movies() {
                 return (
                   <button
                     key={g}
-                    onClick={() => setSelectedGenre(g)}
+                    onClick={() => setSelectedGenre(selectedGenre === g ? "All" : g)}
                     className={`px-2.5 py-1 rounded-lg text-xs font-medium transition shrink-0 ${
                       isSelected
                         ? "bg-slate-900 text-white font-bold"
@@ -423,7 +435,7 @@ function Movies() {
                 return (
                   <button
                     key={fmt}
-                    onClick={() => setSelectedFormat(fmt)}
+                    onClick={() => setSelectedFormat(selectedFormat === fmt ? "All" : fmt)}
                     className={`px-2.5 py-1 rounded-lg text-xs font-medium transition ${
                       isSelected
                         ? "bg-slate-900 text-white font-bold"
