@@ -4,7 +4,9 @@ const { seedDefaultUsers } = require("../services/userSeeder");
 
 const connectDB = async () => {
   try {
-    const mongoUri = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/cinebook";
+    const mongoUri =
+      process.env.MONGO_URI ||
+      "mongodb+srv://Lithish_project:Lithishkumar@cluster0.l8hi8yu.mongodb.net/flickticket?retryWrites=true&w=majority";
     
     if (!process.env.MONGO_URI) {
       console.warn("⚠️ Warning: MONGO_URI is not set in environment variables! Using localhost fallback.");
