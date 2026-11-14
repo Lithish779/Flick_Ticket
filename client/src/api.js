@@ -1,20 +1,11 @@
 import axios from "axios";
 
 // ── Smart API Base URL Resolver ──────────────────────────────────────────────
-// In cloud production (e.g. Vercel deployment), automatically targets the live Render backend.
-// In local development, targets http://localhost:5001.
+// Always targets the live deployed Render backend: https://flick-ticket-bt8v.onrender.com
+const DEPLOYED_BACKEND_URL = "https://flick-ticket-bt8v.onrender.com";
+
 const getBaseURL = () => {
-  if (process.env.REACT_APP_API_URL) {
-    return process.env.REACT_APP_API_URL;
-  }
-  if (
-    typeof window !== "undefined" &&
-    window.location.hostname !== "localhost" &&
-    window.location.hostname !== "127.0.0.1"
-  ) {
-    return "https://flick-ticket-bt8v.onrender.com";
-  }
-  return "http://localhost:5001";
+  return process.env.REACT_APP_API_URL || DEPLOYED_BACKEND_URL;
 };
 
 const API = axios.create({

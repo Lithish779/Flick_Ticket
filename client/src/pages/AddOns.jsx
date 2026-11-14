@@ -55,7 +55,7 @@ function AddOns() {
   const userString = localStorage.getItem("user");
   const user = userString ? JSON.parse(userString) : null;
   const userId = user?._id || user?.id || localStorage.getItem("userId");
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+  const API_URL = process.env.REACT_APP_API_URL || "https://flick-ticket-bt8v.onrender.com";
 
   /* Protect Refresh */
   useEffect(() => {

@@ -17,7 +17,7 @@ export default function AdminParking() {
   const [editId, setEditId] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
 
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+  const API_URL = process.env.REACT_APP_API_URL || "https://flick-ticket-bt8v.onrender.com";
 
   const fetchData = async () => {
     try {

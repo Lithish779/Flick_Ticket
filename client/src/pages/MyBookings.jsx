@@ -16,7 +16,7 @@ function MyBookings() {
   const user = userString ? JSON.parse(userString) : null;
   const userId = user?._id || user?.id || localStorage.getItem("userId");
   const token = localStorage.getItem("token");
-  const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+  const API_URL = process.env.REACT_APP_API_URL || "https://flick-ticket-bt8v.onrender.com";
 
   const [cancellingId, setCancellingId] = useState(null);
   const [cancelModalBooking, setCancelModalBooking] = useState(null);
