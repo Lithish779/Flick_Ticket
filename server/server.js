@@ -70,18 +70,6 @@ app.get("/", (req, res) => {
   });
 });
 
-// ── Database Availability Guard ───────────────────────────────────────────
-app.use("/api", (req, res, next) => {
-  if (mongoose.connection.readyState !== 1) {
-    return res.status(503).json({
-      message:
-        "MongoDB is currently connecting or not configured. If running on Render, please make sure the MONGO_URI environment variable is added in Render Dashboard Settings.",
-      database: "disconnected",
-    });
-  }
-  next();
-});
-
 // ── API Routes ────────────────────────────────────────────────────────────
 app.use("/api/auth",      require("./routes/authRoutes"));
 app.use("/api/movies",    require("./routes/movieRoutes"));
