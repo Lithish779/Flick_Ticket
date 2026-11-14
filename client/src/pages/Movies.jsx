@@ -153,12 +153,28 @@ function Movies() {
       let matchGenre = selectedGenre === "All";
       if (!matchGenre) {
         const selNorm = selectedGenre.toLowerCase().replace(/[^a-z0-9]/g, "");
-        const movieGenreStr = [
-          movie.genre || "",
-          Array.isArray(movie.genres) ? movie.genres.join(" ") : "",
-        ].join(" ");
-        const movieNorm = movieGenreStr.toLowerCase().replace(/[^a-z0-9]/g, "");
-        matchGenre = movieNorm.includes(selNorm);
+        const movieGenreList = [];
+        if (movie.genre) {
+          movie.genre.split(/[|,/]/).forEach((g) => {
+            const trimmed = g.trim();
+            if (trimmed) movieGenreList.push(trimmed);
+          });
+        }
+        if (Array.isArray(movie.genres)) {
+          movie.genres.forEach((g) => {
+            const trimmed = g.trim();
+            if (trimmed) movieGenreList.push(trimmed);
+          });
+        }
+        const normGenres = movieGenreList.map((g) =>
+          g.toLowerCase().replace(/[^a-z0-9]/g, "")
+        );
+        matchGenre = normGenres.some((g) => {
+          if (g === selNorm) return true;
+          if (selNorm === "scifi" && (g.includes("sci") || g.includes("fiction"))) return true;
+          if (selNorm === "romance" && (g.includes("roman") || g.includes("love"))) return true;
+          return g.includes(selNorm) || selNorm.includes(g);
+        });
       }
 
       // Language
@@ -171,13 +187,33 @@ function Movies() {
             (l) => l.toLowerCase() === selectedLanguage.toLowerCase()
           ));
 
-      // Format
-      const matchFormat =
-        selectedFormat === "All" ||
-        (movie.format && movie.format.toLowerCase().includes(selectedFormat.toLowerCase())) ||
-        (selectedFormat === "IMAX 3D" && (movie.title?.includes("IMAX") || movie.rating >= 8.5)) ||
-        (selectedFormat === "3D" && movie.rating >= 8.0) ||
-        selectedFormat === "2D";
+      // Format (checks both movie.formats array and movie.format)
+      let matchFormat = selectedFormat === "All";
+      if (!matchFormat) {
+        const selFmt = selectedFormat.toLowerCase().replace(/[^a-z0-9]/g, "");
+        const movieFormatList = [];
+        if (movie.format) movieFormatList.push(movie.format);
+        if (Array.isArray(movie.formats)) movieFormatList.push(...movie.formats);
+        if (movieFormatList.length === 0) movieFormatList.push("2D");
+
+        const normFormats = movieFormatList.map((f) =>
+          f.toLowerCase().replace(/[^a-z0-9]/g, "")
+        );
+
+        matchFormat = normFormats.some((f) => {
+          if (f === selFmt) return true;
+          if (selFmt === "3d" && (f.includes("3d") || f === "3d")) return true;
+          if (selFmt === "2d" && (f.includes("2d") || f === "2d")) return true;
+          if (selFmt.includes("imax") && f.includes("imax")) {
+            if (selFmt === "imax3d" && f.includes("3d")) return true;
+            if (selFmt === "imax2d" && (f.includes("2d") || f.includes("70mm"))) return true;
+            if (selFmt === "imax") return true;
+          }
+          if (selFmt.includes("dolby") && f.includes("dolby")) return true;
+          if (selFmt.includes("4dx") && f.includes("4dx")) return true;
+          return f.includes(selFmt);
+        });
+      }
 
       // Curated quick pills
       let matchCurated = true;
@@ -426,17 +462,17 @@ function Movies() {
             </div>
 
             {/* Experience / Format Dropdown Pills */}
-            <div className="flex items-center gap-1.5 shrink-0">
-              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider pr-1">
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 max-w-full custom-scrollbar">
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-wider shrink-0 pr-1">
                 Format:
               </span>
-              {["All", "IMAX 3D", "4DX", "Dolby Atmos"].map((fmt) => {
+              {formats.map((fmt) => {
                 const isSelected = selectedFormat === fmt;
                 return (
                   <button
                     key={fmt}
                     onClick={() => setSelectedFormat(selectedFormat === fmt ? "All" : fmt)}
-                    className={`px-2.5 py-1 rounded-lg text-xs font-medium transition ${
+                    className={`px-2.5 py-1 rounded-lg text-xs font-medium transition shrink-0 ${
                       isSelected
                         ? "bg-slate-900 text-white font-bold"
                         : "bg-slate-100/80 hover:bg-slate-200/70 text-slate-600"
@@ -485,7 +521,18 @@ function Movies() {
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6">
             {filteredMovies.map((movie) => {
               const isSaved = watchlistIds.includes(movie._id);
-              const formatBadge = movie.format || (movie.rating >= 8.5 ? "IMAX 3D" : "4K DOLBY");
+              const formatBadge =
+                (Array.isArray(movie.formats) && movie.formats.length > 0)
+                  ? (movie.formats.includes("IMAX 3D")
+                      ? "IMAX 3D"
+                      : movie.formats.includes("IMAX 2D")
+                      ? "IMAX 2D"
+                      : movie.formats.includes("4DX")
+                      ? "4DX"
+                      : movie.formats.includes("Dolby Atmos")
+                      ? "Dolby Atmos"
+                      : movie.formats[0])
+                  : (movie.format || "2D");
               
               return (
                 <div

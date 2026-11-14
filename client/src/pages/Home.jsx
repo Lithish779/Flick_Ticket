@@ -127,12 +127,28 @@ export default function Home() {
       let matchGenre = selectedGenre === "All";
       if (!matchGenre) {
         const selNorm = selectedGenre.toLowerCase().replace(/[^a-z0-9]/g, "");
-        const movieGenreStr = [
-          movie.genre || "",
-          Array.isArray(movie.genres) ? movie.genres.join(" ") : "",
-        ].join(" ");
-        const movieNorm = movieGenreStr.toLowerCase().replace(/[^a-z0-9]/g, "");
-        matchGenre = movieNorm.includes(selNorm);
+        const movieGenreList = [];
+        if (movie.genre) {
+          movie.genre.split(/[|,/]/).forEach((g) => {
+            const trimmed = g.trim();
+            if (trimmed) movieGenreList.push(trimmed);
+          });
+        }
+        if (Array.isArray(movie.genres)) {
+          movie.genres.forEach((g) => {
+            const trimmed = g.trim();
+            if (trimmed) movieGenreList.push(trimmed);
+          });
+        }
+        const normGenres = movieGenreList.map((g) =>
+          g.toLowerCase().replace(/[^a-z0-9]/g, "")
+        );
+        matchGenre = normGenres.some((g) => {
+          if (g === selNorm) return true;
+          if (selNorm === "scifi" && (g.includes("sci") || g.includes("fiction"))) return true;
+          if (selNorm === "romance" && (g.includes("roman") || g.includes("love"))) return true;
+          return g.includes(selNorm) || selNorm.includes(g);
+        });
       }
 
       return matchLang && matchGenre;
