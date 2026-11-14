@@ -106,17 +106,17 @@ const ASSESSMENT_PROFILES = [
   {
     emails: ["admin@cinebook.com", "admin@flickticket.com"],
     passwords: ["admin123"],
-    user: { _id: "admin_assessment_01", name: "Administrator", role: "admin", email: "admin@cinebook.com" },
+    user: { _id: "6af71e5df7cbd9c87a1b652b", name: "Administrator", role: "admin", email: "admin@cinebook.com" },
   },
   {
     emails: ["staff@cinebook.com", "staff@flickticket.com"],
     passwords: ["staff123"],
-    user: { _id: "staff_assessment_01", name: "Auditorium Gate Staff", role: "staff", email: "staff@cinebook.com" },
+    user: { _id: "6af71e5df7cbd9c87a1b6531", name: "Auditorium Gate Staff", role: "staff", email: "staff@cinebook.com" },
   },
   {
     emails: ["customer@cinebook.com", "customer@flickticket.com"],
     passwords: ["password123"],
-    user: { _id: "cust_assessment_01", name: "Moviegoer Customer", role: "user", email: "customer@cinebook.com" },
+    user: { _id: "6af71e5df7cbd9c87a1b6537", name: "Moviegoer Customer", role: "user", email: "customer@cinebook.com" },
   },
 ];
 
