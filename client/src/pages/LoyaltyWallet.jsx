@@ -52,7 +52,7 @@ export default function LoyaltyWallet() {
         <div className="bg-white border border-gray-200 p-8 rounded-3xl shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="space-y-2 text-center md:text-left">
             <span className="bg-red-50 border border-red-200 text-[#F84464] text-[10px] font-black px-3 py-1 rounded-full uppercase tracking-wider">
-              👑 CineClub Member Tier
+              👑 FlickVIP Member Tier
             </span>
             <h1 className="text-3xl md:text-4xl font-extrabold text-[#222222] tracking-tight">
               CinePoints Rewards Wallet

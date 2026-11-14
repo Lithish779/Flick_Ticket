@@ -18,7 +18,22 @@ function Movies() {
   const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
-  const selectedCity = localStorage.getItem("selectedCity") || "Delhi NCR";
+  const [selectedCity, setSelectedCity] = useState(
+    () => localStorage.getItem("selectedCity") || "Mumbai"
+  );
+
+  /* Sync city changes from Navbar in real-time */
+  useEffect(() => {
+    const onCityChange = (e) => {
+      setSelectedCity(e.detail || localStorage.getItem("selectedCity") || "Mumbai");
+    };
+    window.addEventListener("cityChange", onCityChange);
+    window.addEventListener("storage", onCityChange);
+    return () => {
+      window.removeEventListener("cityChange", onCityChange);
+      window.removeEventListener("storage", onCityChange);
+    };
+  }, []);
 
   /* ================= FETCH DATA ================= */
   useEffect(() => {

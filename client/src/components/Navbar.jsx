@@ -118,6 +118,7 @@ export default function Navbar() {
     setSelectedCity(cityName);
     localStorage.setItem("selectedCity", cityName);
     setCityOpen(false);
+    window.dispatchEvent(new CustomEvent("cityChange", { detail: cityName }));
   };
 
   const handleRemoveFromWatchlist = async (e, movieId) => {
