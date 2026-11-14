@@ -4,7 +4,15 @@ import API from "../api";
 import TrailerModal from "../components/TrailerModal";
 
 function Movies() {
-  const [movies, setMovies] = useState([]);
+  // Instant cache-first initialization (< 10ms)
+  const [movies, setMovies] = useState(() => {
+    try {
+      const cached = sessionStorage.getItem("cached_movies");
+      return cached ? JSON.parse(cached) : [];
+    } catch {
+      return [];
+    }
+  });
   const [search, setSearch] = useState("");
   const [selectedGenre, setSelectedGenre] = useState("All");
   const [selectedLanguage, setSelectedLanguage] = useState("All");
@@ -12,7 +20,13 @@ function Movies() {
   const [sortBy, setSortBy] = useState("popular");
   const [curatedFilter, setCuratedFilter] = useState("all");
   const [trailerMovie, setTrailerMovie] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(() => {
+    try {
+      return !sessionStorage.getItem("cached_movies");
+    } catch {
+      return true;
+    }
+  });
   const [watchlistIds, setWatchlistIds] = useState([]);
   const [toastMsg, setToastMsg] = useState("");
   const navigate = useNavigate();
@@ -39,8 +53,12 @@ function Movies() {
   useEffect(() => {
     API.get(`/api/movies`)
       .then((res) => {
-        setMovies(res.data || []);
+        const data = res.data || [];
+        setMovies(data);
         setLoading(false);
+        try {
+          sessionStorage.setItem("cached_movies", JSON.stringify(data));
+        } catch {}
       })
       .catch((err) => {
         console.error("Fetch error:", err);

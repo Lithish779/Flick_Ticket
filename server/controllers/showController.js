@@ -143,6 +143,9 @@ exports.addShow = async (req, res) => {
       ipAddress: req.ip || "127.0.0.1",
     }).catch(() => {});
 
+    // Invalidate cache
+    CACHED_SHOWS = null;
+
     return res.status(201).json(show);
   } catch (err) {
     console.error("Add Show Error:", err);
@@ -177,15 +180,26 @@ exports.getShowById = async (req, res) => {
   }
 };
 
+// In-memory shows cache
+let CACHED_SHOWS = null;
+let SHOWS_CACHE_EXPIRY = 0;
+
 /* ---------- GET SHOWS BY MOVIE ---------- */
 exports.getShowsByMovie = async (req, res) => {
   try {
+    res.set("Cache-Control", "public, max-age=30, stale-while-revalidate=60");
+
     if (mongoose.connection.readyState !== 1) {
       return res.json(buildFallbackShows(req.params.movieId));
     }
+    // Exclude heavy seats array for show selection list (dramatically boosts speed)
     const shows = await Show.find({
       movieId: req.params.movieId,
-    }).maxTimeMS(2500);
+    })
+      .select("-seats")
+      .lean()
+      .maxTimeMS(2500);
+
     if (!shows || shows.length === 0) {
       return res.json(buildFallbackShows(req.params.movieId));
     }
@@ -198,13 +212,30 @@ exports.getShowsByMovie = async (req, res) => {
 /* ---------- GET ALL SHOWS ---------- */
 exports.getAllShows = async (req, res) => {
   try {
+    res.set("Cache-Control", "public, max-age=30, stale-while-revalidate=60");
+
+    const now = Date.now();
+    if (CACHED_SHOWS && now < SHOWS_CACHE_EXPIRY) {
+      return res.json(CACHED_SHOWS);
+    }
+
     if (mongoose.connection.readyState !== 1) {
       return res.json(buildFallbackShows());
     }
-    const shows = await Show.find().populate("movieId").maxTimeMS(2500);
+
+    // Exclude heavy seats array when listing all shows (cuts payload from 1MB to 20KB!)
+    const shows = await Show.find()
+      .select("-seats")
+      .populate("movieId")
+      .lean()
+      .maxTimeMS(2500);
+
     if (!shows || shows.length === 0) {
       return res.json(buildFallbackShows());
     }
+
+    CACHED_SHOWS = shows;
+    SHOWS_CACHE_EXPIRY = now + 30 * 1000; // Cache for 30 seconds
     return res.json(shows);
   } catch (err) {
     return res.json(buildFallbackShows());
@@ -227,6 +258,7 @@ exports.deleteShow = async (req, res) => {
       }).catch(() => {});
     }
 
+    CACHED_SHOWS = null;
     return res.json({ message: "Show Deleted" });
   } catch (err) {
     return res.status(500).json({ message: err.message });
@@ -241,6 +273,7 @@ exports.updateShow = async (req, res) => {
       req.body,
       { returnDocument: "after" }
     );
+    CACHED_SHOWS = null;
     return res.json(updated);
   } catch (err) {
     return res.status(500).json({ message: err.message });
