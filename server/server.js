@@ -15,34 +15,43 @@ if (process.env.NODE_ENV !== "test") {
   connectDB();
 }
 
-// ── CORS ──────────────────────────────────────────────────────────────────
-// Allows localhost in dev + all Vercel and Render deployments
+// ── Bulletproof CORS Middleware ───────────────────────────────────────────
+// Allows all origins (including https://ticket-eta-eight.vercel.app and localhost) with full credentials & preflight support
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin) {
+    res.header("Access-Control-Allow-Origin", origin);
+    res.header("Access-Control-Allow-Credentials", "true");
+  } else {
+    res.header("Access-Control-Allow-Origin", "*");
+  }
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET, HEAD, PUT, PATCH, POST, DELETE, OPTIONS"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization, Bypass"
+  );
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
+  }
+  next();
+});
+
 app.use(
   cors({
-    origin: function (origin, callback) {
-      const allowedExact = [
-        "http://localhost:3000",
-        "https://movie-booking-system-mern-fawn.vercel.app",
-      ];
-
-      // Allow requests with no origin (mobile apps, Postman, curl, server-to-server)
-      if (!origin) return callback(null, true);
-
-      // Allow exact matches or any *.vercel.app or *.onrender.com preview URL
-      if (
-        allowedExact.includes(origin) ||
-        origin.endsWith(".vercel.app") ||
-        origin.endsWith(".onrender.com") ||
-        origin.includes("localhost")
-      ) {
-        return callback(null, true);
-      }
-
-      return callback(new Error("Not allowed by CORS"));
-    },
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    origin: true,
     credentials: true,
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE", "OPTIONS"],
+    allowedHeaders: [
+      "Origin",
+      "X-Requested-With",
+      "Content-Type",
+      "Accept",
+      "Authorization",
+      "Bypass",
+    ],
   })
 );
 
